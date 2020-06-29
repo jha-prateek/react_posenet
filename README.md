@@ -3,8 +3,7 @@ This is an example for ml5.js made using React with <strong>TypeScript</strong> 
 
 ## [ml5](https://ml5js.org/)
 
-ml5.js is an open source, friendly high level interface to TensorFlow.js, a library for handling GPU-accelerated mathematical <br/>
-operations and memory management for machine learning algorithms. ml5.js provides an approachable API and examples to help you get started
+ml5.js is an open source, friendly high level interface to TensorFlow.js, a library for handling GPU-accelerated mathematical operations and memory management for machine learning algorithms. ml5.js provides an approachable API and examples to help you get started
 
 ## Available Scripts
 
