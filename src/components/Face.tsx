@@ -12,6 +12,7 @@ export interface IFaceState {
 export default class Face extends React.Component<IFaceProps, IFaceState> {
     private webCam: React.RefObject<HTMLVideoElement>;
     private camCanvas: React.RefObject<HTMLCanvasElement>;
+    private stream: MediaStream
     private faceNet: any;
     private HEIGHT: number;
     private WIDTH: number;
@@ -51,7 +52,7 @@ export default class Face extends React.Component<IFaceProps, IFaceState> {
             }
             else {
                 console.log(result);
-                // this.drawBox(result);
+                this.drawBox(result);
             }
             // this.faces = result;
         });
@@ -99,13 +100,20 @@ export default class Face extends React.Component<IFaceProps, IFaceState> {
                 },
             }).then(res => {
                 if (res != null) {
-                    this.webCam.current!.srcObject = res;
+                    this.stream = res;
+                    this.webCam.current!.srcObject = this.stream;
                     this.webCam.current?.play();
 
                     this.drawCameraIntoCanvas();
                     this.initializeModel();
                 }
             });
+    }
+
+    componentWillUnmount() {
+        if (this.stream) {
+            this.stream.getTracks().forEach(track => track.stop());
+        }
     }
 
     public render() {
@@ -115,6 +123,7 @@ export default class Face extends React.Component<IFaceProps, IFaceState> {
 
         return (
             <div className="container">
+                <h2>face-api on ml5</h2>
                 <canvas ref={this.camCanvas} width={this.WIDTH} height={this.HEIGHT} />
                 <video playsInline ref={this.webCam} width={this.WIDTH} height={this.HEIGHT} style={camStyle} />
                 {this.foundFace ? "Drawing Bounding Box" : "Look into Camera!!!"}

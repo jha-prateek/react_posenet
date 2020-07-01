@@ -13,6 +13,7 @@ export interface IPoseState {
 export default class Pose extends React.Component<IPoseProps, IPoseState> {
     private webCam: React.RefObject<HTMLVideoElement>;
     private camCanvas: React.RefObject<HTMLCanvasElement>;
+    private stream: MediaStream;
     private poseNet: any;
     private HEIGHT: number;
     private WIDTH: number;
@@ -100,13 +101,20 @@ export default class Pose extends React.Component<IPoseProps, IPoseState> {
                 },
             }).then(res => {
                 if (res != null) {
-                    this.webCam.current!.srcObject = res;
+                    this.stream = res;
+                    this.webCam.current!.srcObject = this.stream;
                     this.webCam.current?.play();
 
                     this.drawCameraIntoCanvas();
                     this.initializeModel();
                 }
             });
+    }
+
+    componentWillUnmount() {
+        if (this.stream) {
+            this.stream.getTracks().forEach(track => track.stop());
+        }
     }
 
     public render() {
@@ -116,6 +124,7 @@ export default class Pose extends React.Component<IPoseProps, IPoseState> {
 
         return (
             <div className="container">
+                <h2>Posenet on ml5</h2>
                 <canvas ref={this.camCanvas} width={this.WIDTH} height={this.HEIGHT} />
                 <video playsInline ref={this.webCam} width={this.WIDTH} height={this.HEIGHT} style={camStyle} />
                 {this.state.detected ? "Found You!!!" : "Show yourself"}
