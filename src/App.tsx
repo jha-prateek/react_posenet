@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import Pose from './components/Pose'
+import Pose from './components/Pose';
+import Face from './components/Face';
 
 interface Props {
 
@@ -18,6 +19,7 @@ export default class App extends React.Component<Props, State>{
           Write some machine learning code!!!
         </header>
         <div className="app-body">
+          {/* <Face /> */}
           <Pose />
         </div>
       </div>

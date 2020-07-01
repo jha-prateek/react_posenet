@@ -1,6 +1,6 @@
 {
-  "short_name": "Poser",
-  "name": "Pose Sample",
+  "short_name": "Deep Learning with ml5",
+  "name": "d-ml5",
   "icons": [
     {
       "src": "favicon.ico",
