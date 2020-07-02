@@ -9,7 +9,7 @@ ml5.js is an open source, friendly high level interface to TensorFlow.js, a libr
 
 In the project directory, you can run:
 
-### `npn init`
+### `npn install`
 
 Initalizes the project directory for development.
 
